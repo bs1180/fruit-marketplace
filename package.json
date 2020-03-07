@@ -18,6 +18,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-query": "^1.0.22",
+    "react-use-cart": "^1.2.2",
     "tailwindcss": "^1.2.0",
     "whatwg-fetch": "^3.0.0",
     "wretch": "^1.7.1"

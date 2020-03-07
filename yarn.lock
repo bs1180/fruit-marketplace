@@ -5057,6 +5057,11 @@ react-query@^1.0.22:
   resolved "https://registry.yarnpkg.com/react-query/-/react-query-1.0.22.tgz#a48f3e616015f7369a3342b350c2b64b9ca6580e"
   integrity sha512-xJVK/c6lRZR6xi6sZrBnroZDrYAdQVVGSiwNONQdBrV3WEmIAJaSse5D8H+UW1BNdceNN036OnSxq9s3hRtClQ==
 
+react-use-cart@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/react-use-cart/-/react-use-cart-1.2.2.tgz#281216078031683c3ac4c16339a7d9038b4372a0"
+  integrity sha512-+m6Hf98fWxlGcdSeVqzHys7CVBarp3Qvr4/XqejMlohomNYyT9gHexFHf7tTARKW5fgKTHcZK5WBgwCLXOnLfA==
+
 react@^16.12.0:
   version "16.13.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.13.0.tgz#d046eabcdf64e457bbeed1e792e235e1b9934cf7"
