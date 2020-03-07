@@ -7,15 +7,15 @@ import api from "../utils/api";
 const IndexPage: NextPage<any> = ({ products }) => {
   return (
     <Layout title="Marketplace">
-      <div className="flex max-w-lg mx-auto items-center justify-content min-h-screen">
+      <div className="flex mx-auto items-center justify-center min-h-screen">
         <div
-          className="bg-white w-full grid grid-cols-3 rounded-lg shadow-lg overflow-hidden"
-          style={{ gridAutoRows: "2vw" }}
+          className="grid gap-3 overflow-hidden"
+          style={{ gridTemplateColumns: "repeat(3, 120px)", gridAutoRows: "120px" }}
         >
           {products.map(product => (
             <div
               key={product.id}
-              className="bg-black bg-center bg-cover"
+              className="bg-black bg-center bg-cover rounded-full overflow-hidden shadow-lg border"
               style={{
                 backgroundImage: product.image_url ? `url('${product.image_url}')` : undefined
               }}
