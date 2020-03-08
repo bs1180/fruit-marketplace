@@ -17,6 +17,7 @@
     "ramda": "^0.27.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-hook-form": "^5.0.2",
     "react-query": "^1.0.22",
     "react-use-cart": "^1.2.2",
     "tailwindcss": "^1.2.0",

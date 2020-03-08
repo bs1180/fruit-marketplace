@@ -5,44 +5,44 @@ import { NextPage } from "next";
 import api from "../../utils/api";
 import { money } from "../../utils";
 import { useCart } from "react-use-cart";
+import { Minus, Plus } from "../../components";
 
 const ProductPage: NextPage<any> = ({ product }) => {
-  const { addItem, getItem, updateItemQuantity } = useCart();
+  const { addItem, getItem, updateItemQuantity, isEmpty, totalUniqueItems, cartTotal } = useCart();
 
   if (!product) {
     return <div>404</div>;
   }
 
-  const { id, name, price, description, image_url } = product;
+  const { id, name, price, description, image_url, unit } = product;
 
   const item = getItem(product.id);
 
   return (
     <Layout title={name}>
-      <Link href="/" passHref>
-        <a className="opacity-75 bg-white px-4 py-3 rounded-full shadow absolute m-8">Back</a>
-      </Link>
-      <div className="flex max-w-md mx-auto items-center justify-center min-h-screen">
-        <div className="w-full flex flex-col bg-white shadow-lg rounded-lg p-8 items-center">
+      <div className="flex max-w-sm mx-auto pb-8">
+        <div className="w-full flex flex-col bg-white shadow-solid text-black rounded-lg p-8 items-center stack">
           {image_url && (
             <div>
               <img className="rounded-full bg-center bg-cover" alt="" src={image_url} />
             </div>
           )}
-          <div className=" py-4 my-4 px-4">
-            <h1 className="font-bold text-2xl mb-2 text-center">{name}</h1>
-            {description && <p className="text-gray-700 text-base">{description}</p>}
+
+          <h1 className="font-bold text-2xl text-center">{name}</h1>
+          {description && <p className="text-gray-600 text-base text-center">{description}</p>}
+
+          <div className="label">
+            {money(price)} / {unit}
           </div>
-          <div>{money(price)}</div>
-          <div className="flex w-full">
+          <div className="flex w-full justify-center">
             {item ? (
-              <div>
-                <button className="border p-2" onClick={() => updateItemQuantity(product.id, item.quantity - 1)}>
-                  -
+              <div className="flex items-center justify-around w-24">
+                <button onClick={() => updateItemQuantity(product.id, item.quantity - 1)}>
+                  <Minus />
                 </button>
-                {item.quantity}
-                <button className="border p-2" onClick={() => updateItemQuantity(product.id, item.quantity + 1)}>
-                  +
+                <span>{item.quantity}</span>
+                <button onClick={() => updateItemQuantity(product.id, item.quantity + 1)}>
+                  <Plus />
                 </button>
               </div>
             ) : (

@@ -6,16 +6,16 @@ import api from "../utils/api";
 
 const IndexPage: NextPage<any> = ({ products }) => {
   return (
-    <Layout title="Marketplace">
-      <div className="flex mx-auto items-center justify-center min-h-screen">
+    <Layout title="Marketplace" hideBack>
+      <div className="flex mx-auto items-center justify-center">
         <div
-          className="grid gap-3 overflow-hidden"
+          className="grid gap-3 overflow-hidden p-2"
           style={{ gridTemplateColumns: "repeat(3, 120px)", gridAutoRows: "120px" }}
         >
           {products.map(product => (
             <div
               key={product.id}
-              className="bg-black bg-center bg-cover rounded-full overflow-hidden shadow-lg border"
+              className="bg-black bg-center bg-cover rounded-full overflow-hidden shadow-lg shadow-solid"
               style={{
                 backgroundImage: product.image_url ? `url('${product.image_url}')` : undefined
               }}
