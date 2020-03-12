@@ -3,12 +3,12 @@ import Link from "next/link";
 import Layout from "../../components/Layout";
 import { NextPage } from "next";
 import api from "../../utils/api";
-import { money } from "../../utils";
+import { formatMoney } from "../../utils";
 import { useCart } from "react-use-cart";
 import { Card, Minus, Plus } from "../../components";
 
 const ProductPage: NextPage<any> = ({ product }) => {
-  const { addItem, getItem, updateItemQuantity, isEmpty, totalUniqueItems, cartTotal } = useCart();
+  const { addItem, getItem, updateItemQuantity } = useCart();
 
   if (!product) {
     return <div>404</div>;
@@ -38,7 +38,7 @@ const ProductPage: NextPage<any> = ({ product }) => {
           {description && <p className="text-gray-600 text-base text-center">{description}</p>}
 
           <div className="label">
-            {money(price)} / {unit}
+            {formatMoney(price)} / {unit}
           </div>
           <div className="flex w-full justify-center">
             {item ? (

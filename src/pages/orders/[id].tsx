@@ -2,7 +2,7 @@ import * as React from "react";
 import Layout from "../../components/Layout";
 import { NextPage } from "next";
 import api from "../../utils/api";
-import { money } from "../../utils";
+import { formatMoney, formatDate } from "../../utils";
 import { Card, Section } from "../../components";
 import { useRouter } from "next/router";
 
@@ -25,7 +25,7 @@ const OrderPage: NextPage<any> = ({ order }) => {
   return (
     <Layout title={title}>
       <div className="flex max-w-md mx-auto items-center justify-center ">
-        <Card title={title} description={`Recieved ${order.created_at}`}>
+        <Card title={title} description={`Recieved ${formatDate(order.created_at)}`}>
           {showThanks ? <Thanks /> : null}
           <dl className="striped w-full">
             <Section title="Name">{order.name}</Section>
@@ -37,13 +37,13 @@ const OrderPage: NextPage<any> = ({ order }) => {
                   <>
                     <div>{item.name}</div>
                     <div className="text-right">
-                      {item.quantity} x {money(item.price)}
+                      {item.quantity} x {formatMoney(item.price)}
                     </div>
                   </>
                 ))}
                 <>
                   <div className="font-bold">Total</div>
-                  <div className="text-right">{money(order.total)}</div>
+                  <div className="text-right">{formatMoney(order.total)}</div>
                 </>
               </div>
             </Section>

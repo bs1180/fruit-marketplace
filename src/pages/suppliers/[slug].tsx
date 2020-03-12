@@ -3,8 +3,7 @@ import Link from "next/link";
 import Layout from "../../components/Layout";
 import { NextPage } from "next";
 import api from "../../utils/api";
-import { money } from "../../utils";
-import { format } from "date-fns";
+import { formatMoney, formatDate } from "../../utils";
 
 const SupplierPage: NextPage<any> = ({ supplier, error }) => {
   console.log(supplier);
@@ -40,7 +39,7 @@ const SupplierPage: NextPage<any> = ({ supplier, error }) => {
                         <a className="hover:underline">{product.name}</a>
                       </Link>
                     </td>
-                    <td className="w-1/3 text-center">{money(product.price)}</td>
+                    <td className="w-1/3 text-center">{formatMoney(product.price)}</td>
                     <td className="w-1/3 text-center">{product.quantity_available}</td>
                   </tr>
                 ))}
@@ -65,8 +64,8 @@ const SupplierPage: NextPage<any> = ({ supplier, error }) => {
                       <a className="hover:underline">{order.name}</a>
                     </Link>
                   </td>
-                  <td className="w-1/3 text-center">{format(new Date(order.created_at), "dd MMM yyyy")}</td>
-                  <td className="w-1/3 text-center">{money(order.total)}</td>
+                  <td className="w-1/3 text-center">{formatDate(order.created_at)}</td>
+                  <td className="w-1/3 text-center">{formatMoney(order.total)}</td>
                 </tr>
               ))}
             </tbody>

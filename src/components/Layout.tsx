@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useCart } from "react-use-cart";
-import { money } from "../utils";
+import { formatMoney } from "../utils";
 import Link from "next/link";
 import Chevron from "./Chevron";
 import { ShoppingCart } from "./ShoppingCart";
@@ -14,7 +14,7 @@ type Props = {
 
 const Layout: React.FunctionComponent<Props> = ({ children, title = "", hideBack = false }) => {
   const router = useRouter();
-  const { totalUniqueItems, cartTotal } = useCart();
+  const { cartTotal } = useCart();
   return (
     <div className="bg-gray-100 min-h-screen bg-pattern">
       <Head>
@@ -36,7 +36,7 @@ const Layout: React.FunctionComponent<Props> = ({ children, title = "", hideBack
           <Link href="/checkout" passHref>
             <a className="opacity-75 bg-white flex flex-col h-16 w-16 items-center justify-center rounded-full shadow-solid text-black block ml-auto">
               <ShoppingCart />
-              <div className="text-xs font-semibold">{money(cartTotal ?? 0)}</div>
+              <div className="text-xs font-semibold">{formatMoney(cartTotal ?? 0)}</div>
             </a>
           </Link>
         </div>
