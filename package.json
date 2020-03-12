@@ -10,25 +10,26 @@
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^2.1.0",
     "@tailwindcss/ui": "^0.1.3",
-    "dinero.js": "^1.7.0",
+    "date-fns": "^2.10.0",
+    "dinero.js": "^1.8.0",
     "isomorphic-unfetch": "^3.0.0",
-    "next": "latest",
+    "next": "9.3.0",
     "postcss-preset-env": "^6.7.0",
     "ramda": "^0.27.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-hook-form": "^5.0.2",
-    "react-query": "^1.0.22",
+    "react-hook-form": "^5.0.3",
+    "react-query": "^1.0.26",
     "react-use-cart": "^1.2.2",
     "tailwindcss": "^1.2.0",
     "whatwg-fetch": "^3.0.0",
     "wretch": "^1.7.1"
   },
   "devDependencies": {
-    "@types/node": "^12.12.21",
+    "@types/node": "^13.9.0",
     "@types/react": "^16.9.16",
     "@types/react-dom": "^16.9.4",
-    "typescript": "3.7.3"
+    "typescript": "3.8.3"
   },
   "license": "ISC"
 }

@@ -17,11 +17,6 @@ export default {
       id
       name
       slug
-      supplier {
-        id
-        name
-        slug
-      }
       image_url(args: { width: 200, height: 200 })
     }
   }`
@@ -40,6 +35,11 @@ export default {
                   price
                   image_url(args: { width: 200, height: 200 })
                   unit
+                  supplier {
+                    id
+                    name
+                    slug
+                  }
               }
         }`,
         variables: { slug }
@@ -71,6 +71,10 @@ export default {
                   id
                   name
                   created_at
+                  total
+                  line_items {
+                    id
+                  }
                 }
                 orders_aggregate {
                   aggregate {
@@ -80,10 +84,38 @@ export default {
                 products {
                   id
                   name
+                  price
+                  quantity_available
+                  slug
                 }
             }
       }`,
         variables: { slug }
+      })
+      .post()
+      .json<any>();
+  },
+  fetchOrder: id => {
+    return baseApi
+      .json({
+        query: `query ($id: Int!) {
+              order: orders_by_pk(id: $id) {
+                id
+                name
+                email
+                delivery_address
+                created_at
+                total
+                  line_items {
+                    id
+                    name
+                    price
+                    quantity
+                  }
+                }
+          
+      }`,
+        variables: { id }
       })
       .post()
       .json<any>();

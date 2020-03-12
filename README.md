@@ -4,7 +4,8 @@ Stack used:
 
 - Postgres
 - Hasura
-- React
-- Tailwind
+- React, with Typescript and the Next JS framework
+- Tailwind CSS
 
 Images are from unsplash.com
+Background pattern from heropatterns.com

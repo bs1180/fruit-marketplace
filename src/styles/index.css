@@ -18,5 +18,13 @@
 }
 
 .label {
-  @apply text-gray-800 text-sm font-semibold;
+  @apply text-gray-500 text-sm font-semibold;
+}
+
+.striped > *:nth-child(even) {
+  background: white;
+}
+
+.striped > *:nth-child(odd) {
+  background: @apply bg-gray-400;
 }

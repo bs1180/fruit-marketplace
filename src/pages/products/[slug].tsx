@@ -5,7 +5,7 @@ import { NextPage } from "next";
 import api from "../../utils/api";
 import { money } from "../../utils";
 import { useCart } from "react-use-cart";
-import { Minus, Plus } from "../../components";
+import { Card, Minus, Plus } from "../../components";
 
 const ProductPage: NextPage<any> = ({ product }) => {
   const { addItem, getItem, updateItemQuantity, isEmpty, totalUniqueItems, cartTotal } = useCart();
@@ -14,7 +14,7 @@ const ProductPage: NextPage<any> = ({ product }) => {
     return <div>404</div>;
   }
 
-  const { id, name, price, description, image_url, unit } = product;
+  const { id, name, price, description, image_url, unit, supplier } = product;
 
   const item = getItem(product.id);
 
@@ -24,11 +24,17 @@ const ProductPage: NextPage<any> = ({ product }) => {
         <div className="w-full flex flex-col bg-white shadow-solid text-black rounded-lg p-8 items-center stack">
           {image_url && (
             <div>
-              <img className="rounded-full bg-center bg-cover" alt="" src={image_url} />
+              <img className="rounded-full bg-center bg-cover shadow-solid" alt="" src={image_url} />
             </div>
           )}
 
           <h1 className="font-bold text-2xl text-center">{name}</h1>
+          <div className="label">
+            Supplied by{" "}
+            <Link href={`/suppliers/[slug]?slug=${supplier?.slug}`} as={`/suppliers/${supplier?.slug}`} passHref>
+              <a className="underline">{supplier?.name}</a>
+            </Link>
+          </div>
           {description && <p className="text-gray-600 text-base text-center">{description}</p>}
 
           <div className="label">

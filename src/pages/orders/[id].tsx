@@ -2,34 +2,63 @@ import * as React from "react";
 import Layout from "../../components/Layout";
 import { NextPage } from "next";
 import api from "../../utils/api";
+import { money } from "../../utils";
+import { Card, Section } from "../../components";
+import { useRouter } from "next/router";
+
+const Thanks = () => (
+  <div className="flex items-center justify-center p-3 border-b-2 border-black bg-green-200">
+    Your order has been received and will ship shortly
+  </div>
+);
 
 const OrderPage: NextPage<any> = ({ order }) => {
+  const router = useRouter();
+
   if (!order) {
     return <div>404</div>;
   }
 
-  const { name, line_items } = order;
+  const title = `Order #${order.id}`;
+  const showThanks = router.query.m === "thanks";
 
   return (
-    <Layout title={name}>
-      <div className="flex max-w-md mx-auto items-center justify-center min-h-screen">
-        <div className="w-full flex flex-col bg-white shadow-lg rounded-lg p-8 items-center">
-          <div className=" py-4 my-4 px-4">
-            <h1 className="font-bold text-2xl mb-2 text-center">{name}</h1>
-          </div>
-
-          <div className="flex w-full">products</div>
-          <div className="flex w-full">orders</div>
-        </div>
+    <Layout title={title}>
+      <div className="flex max-w-md mx-auto items-center justify-center ">
+        <Card title={title} description={`Recieved ${order.created_at}`}>
+          {showThanks ? <Thanks /> : null}
+          <dl className="striped w-full">
+            <Section title="Name">{order.name}</Section>
+            <Section title="Email">{order.email}</Section>
+            <Section title="Delivery Address">{order.delivery_address}</Section>
+            <Section title="Contents">
+              <div className="grid grid-cols-2">
+                {order.line_items.map(item => (
+                  <>
+                    <div>{item.name}</div>
+                    <div className="text-right">
+                      {item.quantity} x {money(item.price)}
+                    </div>
+                  </>
+                ))}
+                <>
+                  <div className="font-bold">Total</div>
+                  <div className="text-right">{money(order.total)}</div>
+                </>
+              </div>
+            </Section>
+          </dl>
+        </Card>
       </div>
     </Layout>
   );
 };
 
-OrderPage.getInitialProps = async ({ query: { slug } }) => {
-  const res = await api.fetchSupplier(slug);
-  const supplier = res.data?.suppliers[0];
-  return { supplier };
+OrderPage.getInitialProps = async ({ query: { id } }) => {
+  const res = await api.fetchOrder(id);
+
+  const order = res.data?.order;
+  return { order };
 };
 
 export default OrderPage;
