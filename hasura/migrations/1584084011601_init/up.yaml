@@ -1,0 +1,91 @@
+- args:
+    tables:
+    - object_relationships:
+      - name: product
+        using:
+          foreign_key_constraint_on: product_id
+      table:
+        name: line_items
+        schema: public
+    - array_relationships:
+      - name: line_items
+        using:
+          foreign_key_constraint_on:
+            column: order_id
+            table:
+              name: line_items
+              schema: public
+      event_triggers:
+      - definition:
+          enable_manual: false
+          insert:
+            columns: '*'
+        name: process_order
+        retry_conf:
+          interval_sec: 10
+          num_retries: 0
+          timeout_sec: 60
+        webhook: http://localhost.me:3000/api/post-order
+      table:
+        name: orders
+        schema: public
+    - array_relationships:
+      - name: line_items
+        using:
+          foreign_key_constraint_on:
+            column: product_id
+            table:
+              name: line_items
+              schema: public
+      computed_fields:
+      - comment: ""
+        definition:
+          function:
+            name: image_url
+            schema: public
+          table_argument: null
+        name: image_url
+      object_relationships:
+      - name: supplier
+        using:
+          foreign_key_constraint_on: supplier_id
+      table:
+        name: products
+        schema: public
+    - is_enum: true
+      table:
+        name: supplier_notification_method
+        schema: public
+    - array_relationships:
+      - name: line_items
+        using:
+          manual_configuration:
+            column_mapping:
+              id: order_id
+            remote_table:
+              name: line_items
+              schema: public
+      table:
+        name: supplier_orders
+        schema: public
+    - array_relationships:
+      - name: orders
+        using:
+          manual_configuration:
+            column_mapping:
+              id: supplier_id
+            remote_table:
+              name: supplier_orders
+              schema: public
+      - name: products
+        using:
+          foreign_key_constraint_on:
+            column: supplier_id
+            table:
+              name: products
+              schema: public
+      table:
+        name: suppliers
+        schema: public
+    version: 2
+  type: replace_metadata
