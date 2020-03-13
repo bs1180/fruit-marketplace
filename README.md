@@ -1,5 +1,7 @@
 This project contains a basic e-commerce application.
 
+![Product page](/product_page.png?raw=true "Product page")
+
 # Stack used
 
 - Postgres
