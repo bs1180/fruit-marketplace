@@ -63,38 +63,44 @@ export default {
   fetchSupplier: slug => {
     return baseApi
       .json({
-        query: `query ($slug: String!) {
-              suppliers(where: { slug: { _eq: $slug}}) {
+        query: `
+          query ($slug: String!) {
+            suppliers(where: { slug: { _eq: $slug}}) {
+              id
+              name
+              orders {
                 id
                 name
-                orders {
+                created_at
+                total
+                line_items {
                   id
-                  name
-                  created_at
-                  total
-                  line_items {
-                    id
-                  }
                 }
-                orders_aggregate {
-                  aggregate {
-                    count
-                  }
+              }
+              orders_aggregate {
+                aggregate {
+                  count
                 }
-                products {
-                  id
-                  name
-                  price
-                  quantity_available
-                  slug
-                }
+              }
+              products {
+                id
+                name
+                price
+                quantity_available
+                slug
+              }
+              notification_method
+              notification_url
+              notification_email
             }
-      }`,
+          }
+      `,
         variables: { slug }
       })
       .post()
       .json<any>();
   },
+
   fetchOrder: id => {
     return baseApi
       .json({
@@ -111,10 +117,74 @@ export default {
                     name
                     price
                     quantity
+                    product {
+                      id
+                      name
+                      price
+                      supplier {
+                        id
+                        name
+                        slug
+                      }
+                    }
                   }
                 }
           
       }`,
+        variables: { id }
+      })
+      .post()
+      .json<any>();
+  },
+
+  fetchProductsById: ids => {
+    return baseApi
+      .json({
+        query: `query ($ids: [bigint!]!) {
+          products(where: {id: {_in: $ids}}) {
+            id
+            name
+            price
+            quantity_available
+          }
+      }`,
+        variables: { ids }
+      })
+      .post()
+      .json<any>();
+  },
+
+  adjustStock: (id, quantity) => {
+    return baseApi
+      .json({
+        query: `
+        mutation ($id: bigint!, $quantity: Int! ) {
+          update_products_by_pk(_inc: {quantity_available: $quantity}, pk_columns: {id: $id}) {
+            id
+            quantity_available
+          }
+        }
+        
+    `,
+        variables: { id, quantity }
+      })
+      .post()
+      .json<any>();
+  },
+
+  fetchSupplierCredentials: id => {
+    return baseApi
+      .json({
+        query: `
+          query ($id: Int!) {
+            supplier: suppliers_by_pk(id: $id) {
+              id
+              notification_method
+              notification_url
+              notification_email
+            }
+          }
+      `,
         variables: { id }
       })
       .post()
